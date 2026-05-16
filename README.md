@@ -24,6 +24,14 @@ const parsedXml = await parseRssXml(xmlString);
 
 The helper fetches RSS XML with the standard server-side `fetch` API, applies a timeout, follows redirects, sends request headers, and then parses the XML with `rss-parser`. This keeps the API route compatible with Vercel's Node.js serverless runtime while preserving consistent parsing behavior.
 
+## Feed API
+
+The project exposes a feed endpoint at `GET /api/feed`.
+
+- `GET /api/feed` returns the latest 100 items by default.
+- `GET /api/feed?limit=25` returns the latest 25 items after normalization and descending publish-date sorting.
+- The `limit` query parameter must be a positive integer.
+
 ## Deployment
 
 The RSS API route runs on the Node.js runtime and sets a route `maxDuration` so deployment platforms like Vercel can apply an execution limit.
